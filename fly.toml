@@ -1,0 +1,56 @@
+# fly.toml file generated for szpak-portfolio
+
+app = 'szpak-portfolio'
+primary_region = 'ord'
+kill_signal = 'SIGTERM'
+
+[build]
+
+[deploy]
+  release_command = '/app/bin/migrate'
+
+[env]
+  PHX_HOST = 'szpak-portfolio.fly.dev'
+  PORT = '8080'
+  POOL_SIZE = '10'
+
+[experimental]
+  auto_rollback = true
+
+[[services]]
+  protocol = 'tcp'
+  internal_port = 8080
+  processes = ['app']
+
+  [[services.ports]]
+    port = 80
+    handlers = ['http']
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ['tls', 'http']
+  
+  [services.concurrency]
+    type = 'connections'
+    hard_limit = 1000
+    soft_limit = 1000
+
+  [[services.tcp_checks]]
+    interval = '15s'
+    timeout = '2s'
+    grace_period = '1s'
+
+  [[services.http_checks]]
+    interval = '10s'
+    timeout = '2s'
+    grace_period = '1s'
+    method = 'get'
+    path = '/health'
+    protocol = 'http'
+    tls_skip_verify = false
+    headers = {}
+
+[[statics]]
+  guest_path = '/app/lib/szpak_portfolio_web-*/priv/static'
+  url_prefix = '/assets'

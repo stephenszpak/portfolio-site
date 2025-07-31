@@ -1,0 +1,16 @@
+{
+  "name": "szpak-portfolio-assets",
+  "version": "1.0.0",
+  "description": "Assets for Stephen Szpak's Portfolio",
+  "main": "js/app.js",
+  "scripts": {
+    "build": "echo 'Assets are built via Phoenix Mix tasks'",
+    "watch": "echo 'Assets are watched via Phoenix Mix tasks'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephenszpak/portfolio.git"
+  },
+  "author": "Stephen Szpak",
+  "license": "MIT"
+}
