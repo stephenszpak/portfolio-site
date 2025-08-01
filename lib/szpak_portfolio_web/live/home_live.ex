@@ -66,14 +66,14 @@ defmodule SzpakPortfolioWeb.HomeLive do
       },
       %{
         id: 3,
-        title: "E-commerce Platform",
-        description: "Full-featured e-commerce platform with payment processing and inventory management.",
-        long_description: "A comprehensive e-commerce solution featuring product catalog, shopping cart, payment processing with Stripe, order management, and admin dashboard. Built with Phoenix LiveView for interactive user experience.",
-        image: "/images/projects/ecommerce.jpg",
-        technologies: ["Phoenix LiveView", "Elixir", "PostgreSQL", "Stripe API"],
-        github_url: "https://github.com/stephenszpak/phoenix-shop",
-        live_url: "https://demo-shop.stephenszpak.dev",
-        status: "in_progress"
+        title: "DevTeam AI",
+        description: "AI-powered development team simulation with collaborative intelligent agents for automated code generation.",
+        long_description: "An innovative hybrid Elixir/Python application that demonstrates AI-driven software development workflows. Features real-time task creation and tracking, intelligent agents using AutoGen framework that understand and execute development tasks, simulated coding workflow with agent collaboration, live chat and status updates, and microservice architecture. Users can submit natural language development tasks like 'Create a responsive navigation bar' and watch AI agents receive, analyze, generate, and implement code with real-time progress updates. Built with Phoenix LiveView backend, React frontend, and Python AI agents in Docker containers.",
+        image: "/images/projects/devteam-ai.jpg",
+        technologies: ["Phoenix LiveView", "React", "Python", "AutoGen", "Docker", "Elixir"],
+        github_url: "https://github.com/stephenszpak/devteam-ai",
+        live_url: nil,
+        status: "completed"
       },
       %{
         id: 4,
@@ -305,9 +305,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
               <!-- Profile Image -->
               <div class="flex justify-center lg:justify-start mb-8">
                 <div class="profile-glow w-32 h-32 rounded-full overflow-hidden animate-pulse-glow">
-                  <div class="w-full h-full bg-gradient-to-br from-primary-400 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold">
-                    SS
-                  </div>
+                  <img src="/images/headshot.jpeg" alt="Stephen Szpak" class="w-full h-full object-cover rounded-full" />
                 </div>
               </div>
 
@@ -331,11 +329,12 @@ defmodule SzpakPortfolioWeb.HomeLive do
 
               <!-- Skill Tags -->
               <div class="flex flex-wrap justify-center lg:justify-start gap-3 mb-12 animate-slide-up-stagger" style="animation-delay: 0.4s;">
-                <span class="skill-tag px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.1s;">OpenAI API</span>
-                <span class="skill-tag px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.2s;">Claude API</span>
-                <span class="skill-tag px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.3s;">Phoenix LiveView</span>
-                <span class="skill-tag px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.4s;">LLM Integration</span>
-                <span class="skill-tag px-4 py-2 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.5s;">AI Workflows</span>
+                <span class="skill-tag px-4 py-2 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.1s;">React</span>
+                <span class="skill-tag px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900 dark:to-purple-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.2s;">Elixir</span>
+                <span class="skill-tag px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.3s;">OpenAI API</span>
+                <span class="skill-tag px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.4s;">Claude API</span>
+                <span class="skill-tag px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.5s;">Phoenix LiveView</span>
+                <span class="skill-tag px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.6s;">AI Workflows</span>
               </div>
 
               <!-- Enhanced CTA Buttons -->
@@ -442,7 +441,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
                 <.icon name="hero-lightning-bolt" class="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Real-time AI</h3>
-              <p class="text-gray-600 dark:text-gray-300">Building live AI interactions and real-time intelligent applications using Phoenix LiveView.</p>
+              <p class="text-gray-600 dark:text-gray-300">Building live AI interactions and real-time intelligent applications using Phoenix LiveView and React.</p>
             </div>
           </div>
         </div>
@@ -495,44 +494,50 @@ defmodule SzpakPortfolioWeb.HomeLive do
               <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 lg:p-12">
                 <div class="grid lg:grid-cols-3 gap-8 items-center">
                   <div class="lg:col-span-1">
-                    <div class="w-48 h-48 mx-auto bg-gradient-to-br from-primary-400 to-purple-500 rounded-full flex items-center justify-center text-white text-6xl font-bold shadow-xl">
-                      SS
+                    <div class="profile-glow w-48 h-48 mx-auto rounded-full overflow-hidden shadow-xl animate-pulse-glow">
+                      <img src="/images/headshot.jpeg" alt="Stephen Szpak" class="w-full h-full object-cover rounded-full" />
                     </div>
                   </div>
                   
                   <div class="lg:col-span-2 space-y-6">
                     <div>
                       <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                        Full Stack Developer & Problem Solver
+                        AI-Focused Full Stack Developer & Problem Solver
                       </h2>
                       <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                         <p>
-                          With over <strong>5 years of experience</strong> in web development, I specialize in creating 
-                          robust, scalable applications using modern technologies. My journey began with traditional 
-                          web development and has evolved to embrace cutting-edge frameworks like Phoenix LiveView.
+                          With over <strong>7 years of experience</strong> in web development, I specialize in building 
+                          modern, performant front-end systems and experimenting with AI integration. Currently serving as 
+                          an <strong>AVP Front-End Developer at AllianceBernstein</strong>, I focus on supporting enterprise 
+                          marketing initiatives by maintaining and enhancing components for our public site and internal 
+                          campaign tools using React and Adobe Experience Manager.
                         </p>
                         <p>
-                          I'm passionate about <strong>functional programming</strong> and real-time web applications. 
-                          My expertise spans from crafting elegant user interfaces to designing efficient backend 
-                          systems and APIs.
+                          Outside of my core role, I independently design and build <strong>AI-powered applications and internal prototypes</strong>—ranging 
+                          from LLM-based dashboards to agent-driven analytics tools—using <strong>Phoenix LiveView</strong>, <strong>OpenAI APIs</strong>, 
+                          and modern Elixir-based architectures. My side projects bridge traditional full-stack engineering 
+                          with emerging AI capabilities like <strong>retrieval-augmented generation (RAG)</strong>, autonomous agents, and prompt-driven automation.
                         </p>
                         <p>
-                          When I'm not coding, you'll find me exploring new technologies, contributing to open source 
-                          projects, or sharing knowledge with the developer community through technical writing and 
-                          mentoring.
+                          I'm passionate about building <strong>intuitive, intelligent software</strong> that enhances user workflows, 
+                          and I'm actively developing tools that integrate real-time data, sentiment analysis, and GPT-based 
+                          interaction into actionable insights.
                         </p>
                       </div>
                     </div>
 
                     <div class="flex flex-wrap gap-4">
-                      <div class="bg-primary-50 dark:bg-primary-900/30 px-4 py-2 rounded-full">
-                        <span class="text-primary-700 dark:text-primary-300 font-medium">Phoenix & Elixir</span>
+                      <div class="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 px-4 py-2 rounded-full border border-blue-200 dark:border-blue-700">
+                        <span class="text-blue-700 dark:text-blue-300 font-medium">React</span>
+                      </div>
+                      <div class="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 px-4 py-2 rounded-full border border-indigo-200 dark:border-indigo-700">
+                        <span class="text-indigo-700 dark:text-indigo-300 font-medium">Frontend Design</span>
+                      </div>
+                      <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 px-4 py-2 rounded-full border border-purple-200 dark:border-purple-700">
+                        <span class="text-purple-700 dark:text-purple-300 font-medium">OpenAI & Claude APIs</span>
                       </div>
                       <div class="bg-primary-50 dark:bg-primary-900/30 px-4 py-2 rounded-full">
-                        <span class="text-primary-700 dark:text-primary-300 font-medium">React & TypeScript</span>
-                      </div>
-                      <div class="bg-primary-50 dark:bg-primary-900/30 px-4 py-2 rounded-full">
-                        <span class="text-primary-700 dark:text-primary-300 font-medium">Node.js</span>
+                        <span class="text-primary-700 dark:text-primary-300 font-medium">Phoenix LiveView</span>
                       </div>
                     </div>
                   </div>
@@ -540,74 +545,108 @@ defmodule SzpakPortfolioWeb.HomeLive do
               </div>
             <% else %>
               <div class="space-y-8">
-                <!-- Timeline Item -->
+                <!-- Timeline Item - AllianceBernstein -->
                 <div class="relative pl-8 pb-8 border-l-2 border-primary-200 dark:border-primary-800">
-                  <div class="absolute -left-2 top-0 w-4 h-4 bg-primary-600 rounded-full"></div>
-                  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                  <div class="absolute -left-2 top-0 w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg"></div>
+                  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center gap-4 mb-3">
                       <span class="text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 px-3 py-1 rounded-full">
-                        2023 - Present
+                        2022 - Present
+                      </span>
+                      <span class="text-xs bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full font-medium">
+                        React
+                      </span>
+                      <span class="text-xs bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full font-medium">
+                        AI Focus
                       </span>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                      Senior Full Stack Developer
+                      AVP / Front-End Developer
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-4">
-                      Leading development of enterprise-scale Phoenix LiveView applications, mentoring junior developers, 
-                      and driving technical architecture decisions.
+                    <p class="text-sm text-purple-600 dark:text-purple-400 font-medium mb-3">
+                      AllianceBernstein
                     </p>
+                    <div class="space-y-3 text-gray-600 dark:text-gray-300 mb-4">
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Architected reusable component-based design system that included Azure build pipelines, NPM package releases, SCSS, and clean JS</p>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Collaborated in cross-functional meetings with UX, Design, QA, and IT teams to gather requirements and discuss feasibility of new components</p>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Assisted offshore team in creation of new AEM components using Java</p>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Spearheaded an integration of multiple European country segments into alliancebernstein.com, orchestrating the migration from Methode to AEM</p>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p><strong>Prototyped internal AI tools</strong> for marketing analytics and dashboard automation</p>
+                      </div>
+                    </div>
                     <div class="flex flex-wrap gap-2">
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">Phoenix LiveView</span>
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">PostgreSQL</span>
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">TailwindCSS</span>
+                      <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded font-medium">AI Tools</span>
+                      <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Design Systems</span>
+                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">Azure Pipelines</span>
+                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">AEM</span>
+                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">Java</span>
+                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">SCSS</span>
                     </div>
                   </div>
                 </div>
 
-                <!-- Timeline Item -->
-                <div class="relative pl-8 pb-8 border-l-2 border-primary-200 dark:border-primary-800">
-                  <div class="absolute -left-2 top-0 w-4 h-4 bg-primary-600 rounded-full"></div>
-                  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                    <div class="flex items-center gap-4 mb-3">
-                      <span class="text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 px-3 py-1 rounded-full">
-                        2021 - 2023
-                      </span>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                      Full Stack Developer
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-4">
-                      Developed and maintained React-based web applications, built RESTful APIs with Node.js, 
-                      and collaborated with cross-functional teams to deliver high-quality software solutions.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">React</span>
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">Node.js</span>
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">MongoDB</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Timeline Item -->
+                <!-- Timeline Item - Ingram Content Group -->
                 <div class="relative pl-8">
-                  <div class="absolute -left-2 top-0 w-4 h-4 bg-primary-600 rounded-full"></div>
-                  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                  <div class="absolute -left-2 top-0 w-4 h-4 bg-gradient-to-r from-blue-500 to-green-500 rounded-full shadow-lg"></div>
+                  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                     <div class="flex items-center gap-4 mb-3">
                       <span class="text-sm font-semibold text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/30 px-3 py-1 rounded-full">
-                        2019 - 2021
+                        2017 - 2022
+                      </span>
+                      <span class="text-xs bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900 dark:to-blue-900 text-green-700 dark:text-green-300 px-2 py-1 rounded-full font-medium">
+                        Full Stack
                       </span>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                      Frontend Developer
+                      Software Developer
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-4">
-                      Started my professional journey focusing on frontend development, creating responsive user interfaces 
-                      and learning the fundamentals of modern web development.
+                    <p class="text-sm text-blue-600 dark:text-blue-400 font-medium mb-3">
+                      Ingram Content Group
                     </p>
+                    <div class="space-y-3 text-gray-600 dark:text-gray-300 mb-4">
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Led upgrade from AngularJS to Angular 11, and authored React migration PoC</p>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Built multi-database syncing tools (Mainframe → MySQL/Vertica)</p>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Created <strong>$1.2M-generating wholesale reporting dashboard</strong> using R</p>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Developed high-performance financial reporting app (C#)</p>
+                      </div>
+                      <div class="flex items-start space-x-2">
+                        <div class="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                        <p>Mentored developers across Ruby on Rails and Angular</p>
+                      </div>
+                    </div>
                     <div class="flex flex-wrap gap-2">
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">JavaScript</span>
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">CSS3</span>
-                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">HTML5</span>
+                      <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Angular</span>
+                      <span class="text-xs bg-cyan-100 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-200 px-2 py-1 rounded">React</span>
+                      <span class="text-xs bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded">Ruby on Rails</span>
+                      <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded">C#</span>
+                      <span class="text-xs bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-1 rounded">R</span>
+                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">MySQL</span>
+                      <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">Vertica</span>
                     </div>
                   </div>
                 </div>

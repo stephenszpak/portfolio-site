@@ -44,9 +44,8 @@ window.liveSocket = liveSocket
 
 // Dark mode functionality
 document.addEventListener("DOMContentLoaded", function() {
-  // Initialize dark mode
-  const darkMode = localStorage.getItem('darkMode') === 'true' || 
-    (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  // Initialize dark mode - default to dark mode
+  const darkMode = localStorage.getItem('darkMode') !== 'false';
   
   if (darkMode) {
     document.documentElement.classList.add('dark');
