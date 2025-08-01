@@ -30,6 +30,7 @@ services:
       PHX_HOST: localhost
       MIX_ENV: dev
       PHX_SERVER: "true"
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
     ports:
       - "4000:4000"
     volumes:

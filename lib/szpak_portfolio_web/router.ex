@@ -18,11 +18,6 @@ defmodule SzpakPortfolioWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive
-    live "/about", AboutLive
-    live "/projects", ProjectsLive
-    live "/technologies", TechnologiesLive
-    live "/contact", ContactLive
-    live "/assistant", AssistantLive
     
     get "/health", HealthController, :index
   end

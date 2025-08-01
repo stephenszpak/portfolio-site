@@ -35,3 +35,6 @@ szpak_portfolio-*.tar
 npm-debug.log
 /assets/node_modules/
 
+.env
+.env
+.env

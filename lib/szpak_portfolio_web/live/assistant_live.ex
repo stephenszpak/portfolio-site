@@ -1,18 +1,28 @@
 defmodule SzpakPortfolioWeb.AssistantLive do
   use SzpakPortfolioWeb, :live_view
+  
+  alias SzpakPortfolio.OpenAIClient
 
   def mount(_params, _session, socket) do
+    api_key_configured = OpenAIClient.api_key_configured?()
+    
     {:ok, 
      assign(socket, 
        page_title: "AI Assistant - Stephen Szpak",
        messages: [],
        current_message: "",
-       assistant_enabled: false
+       assistant_enabled: api_key_configured,
+       api_key_configured: api_key_configured,
+       loading: false
      )}
   end
 
   def handle_event("toggle_assistant", _params, socket) do
-    {:noreply, assign(socket, assistant_enabled: !socket.assigns.assistant_enabled)}
+    if socket.assigns.api_key_configured do
+      {:noreply, assign(socket, assistant_enabled: !socket.assigns.assistant_enabled)}
+    else
+      {:noreply, socket}
+    end
   end
 
   def handle_event("update_message", %{"message" => message}, socket) do
@@ -20,15 +30,39 @@ defmodule SzpakPortfolioWeb.AssistantLive do
   end
 
   def handle_event("send_message", %{"message" => message}, socket) when byte_size(message) > 0 do
-    if socket.assigns.assistant_enabled do
-      # In a real implementation, this would call OpenAI API
-      new_messages = [
-        %{type: :user, content: String.trim(message), timestamp: DateTime.utc_now()},
-        %{type: :assistant, content: "This is a placeholder response. The AI assistant is not yet implemented.", timestamp: DateTime.utc_now()}
-        | socket.assigns.messages
-      ]
+    if socket.assigns.assistant_enabled and not socket.assigns.loading do
+      trimmed_message = String.trim(message)
       
-      {:noreply, assign(socket, messages: new_messages, current_message: "")}
+      # Add user message immediately
+      user_message = %{
+        type: :user, 
+        content: trimmed_message, 
+        timestamp: DateTime.utc_now()
+      }
+      
+      updated_messages = [user_message | socket.assigns.messages]
+      
+      # Create assistant message placeholder for streaming
+      assistant_message = %{
+        type: :assistant,
+        content: "",
+        timestamp: DateTime.utc_now(),
+        streaming: true
+      }
+      
+      final_messages = [assistant_message | updated_messages]
+      
+      # Clear input and set loading state
+      socket = assign(socket, 
+        messages: final_messages,
+        current_message: "",
+        loading: true
+      )
+      
+      # Send async request to OpenAI
+      send(self(), {:send_to_openai, trimmed_message})
+      
+      {:noreply, socket}
     else
       {:noreply, socket}
     end
@@ -37,7 +71,46 @@ defmodule SzpakPortfolioWeb.AssistantLive do
   def handle_event("send_message", _params, socket), do: {:noreply, socket}
 
   def handle_event("clear_chat", _params, socket) do
-    {:noreply, assign(socket, messages: [])}
+    {:noreply, assign(socket, messages: [], loading: false)}
+  end
+
+  def handle_info({:send_to_openai, user_message}, socket) do
+    # Convert messages to OpenAI format (excluding the streaming assistant message)
+    openai_messages = 
+      socket.assigns.messages
+      |> Enum.drop(1) # Remove the streaming assistant message placeholder
+      |> Enum.reverse()
+      |> Enum.map(fn msg ->
+        role = if msg.type == :user, do: "user", else: "assistant"
+        %{role: role, content: msg.content}
+      end)
+    
+    # Add the current user message
+    openai_messages = openai_messages ++ [%{role: "user", content: user_message}]
+    
+    case OpenAIClient.chat_completion(openai_messages) do
+      {:ok, response} ->
+        assistant_content = get_in(response, ["choices", Access.at(0), "message", "content"]) || "Sorry, I couldn't generate a response."
+        
+        # Update the assistant message with the response
+        updated_messages = 
+          socket.assigns.messages
+          |> List.update_at(0, fn msg ->
+            %{msg | content: assistant_content, streaming: false}
+          end)
+        
+        {:noreply, assign(socket, messages: updated_messages, loading: false)}
+      
+      {:error, error_message} ->
+        # Update the assistant message with error
+        updated_messages = 
+          socket.assigns.messages
+          |> List.update_at(0, fn msg ->
+            %{msg | content: "Sorry, I encountered an error: #{error_message}", streaming: false}
+          end)
+        
+        {:noreply, assign(socket, messages: updated_messages, loading: false)}
+    end
   end
 
   def render(assigns) do
@@ -57,42 +130,55 @@ defmodule SzpakPortfolioWeb.AssistantLive do
         <!-- Assistant Toggle -->
         <div class="flex justify-center mb-8">
           <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg text-center">
-            <%= if @assistant_enabled do %>
-              <div class="flex items-center justify-center space-x-3 mb-4">
-                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span class="text-green-600 dark:text-green-400 font-semibold">Assistant Active</span>
-              </div>
+            <%= if @api_key_configured do %>
+              <%= if @assistant_enabled do %>
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                  <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span class="text-green-600 dark:text-green-400 font-semibold">Assistant Active</span>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                  The AI assistant is ready to answer questions about Stephen's work and experience.
+                </p>
+              <% else %>
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                  <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
+                  <span class="text-gray-500 dark:text-gray-400 font-semibold">Assistant Disabled</span>
+                </div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                  Enable the AI assistant to start chatting about Stephen's portfolio.
+                </p>
+              <% end %>
+              
+              <button
+                phx-click="toggle_assistant"
+                class={[
+                  "px-6 py-3 rounded-lg font-semibold transition-all duration-200",
+                  @assistant_enabled && "bg-red-600 hover:bg-red-700 text-white",
+                  !@assistant_enabled && "bg-primary-600 hover:bg-primary-700 text-white"
+                ]}
+              >
+                <%= if @assistant_enabled do %>
+                  <.icon name="hero-pause" class="w-5 h-5 inline mr-2" />
+                  Disable Assistant
+                <% else %>
+                  <.icon name="hero-play" class="w-5 h-5 inline mr-2" />
+                  Enable Assistant
+                <% end %>
+              </button>
             <% else %>
               <div class="flex items-center justify-center space-x-3 mb-4">
-                <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
-                <span class="text-gray-500 dark:text-gray-400 font-semibold">Assistant Disabled</span>
+                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                <span class="text-red-600 dark:text-red-400 font-semibold">API Key Required</span>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                The AI assistant requires an OpenAI API key to be configured in the environment variables.
+              </p>
+              <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-3">
+                <p class="text-yellow-800 dark:text-yellow-300 text-xs">
+                  <strong>Setup:</strong> Add OPENAI_API_KEY to your environment variables
+                </p>
               </div>
             <% end %>
-            
-            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-              <%= if @assistant_enabled do %>
-                The AI assistant is ready to answer questions about Stephen's work and experience.
-              <% else %>
-                Enable the AI assistant to start chatting. This feature requires an OpenAI API key.
-              <% end %>
-            </p>
-            
-            <button
-              phx-click="toggle_assistant"
-              class={[
-                "px-6 py-3 rounded-lg font-semibold transition-all duration-200",
-                @assistant_enabled && "bg-red-600 hover:bg-red-700 text-white",
-                !@assistant_enabled && "bg-primary-600 hover:bg-primary-700 text-white"
-              ]}
-            >
-              <%= if @assistant_enabled do %>
-                <.icon name="hero-pause" class="w-5 h-5 inline mr-2" />
-                Disable Assistant
-              <% else %>
-                <.icon name="hero-play" class="w-5 h-5 inline mr-2" />
-                Enable Assistant
-              <% end %>
-            </button>
           </div>
         </div>
 
@@ -149,7 +235,14 @@ defmodule SzpakPortfolioWeb.AssistantLive do
                       message.type == :user && "bg-primary-600 text-white",
                       message.type == :assistant && "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
                     ]}>
-                      <p class="text-sm"><%= message.content %></p>
+                      <%= if Map.get(message, :streaming, false) && message.content == "" do %>
+                        <div class="flex items-center space-x-2">
+                          <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-600"></div>
+                          <p class="text-sm text-gray-500 dark:text-gray-400">Thinking...</p>
+                        </div>
+                      <% else %>
+                        <p class="text-sm whitespace-pre-wrap"><%= message.content %></p>
+                      <% end %>
                       <p class={[
                         "text-xs mt-1",
                         message.type == :user && "text-primary-100",
@@ -171,16 +264,28 @@ defmodule SzpakPortfolioWeb.AssistantLive do
                   name="message"
                   value={@current_message}
                   phx-change="update_message"
-                  placeholder="Ask me about Stephen's work..."
-                  class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white"
+                  placeholder={if @loading, do: "AI is thinking...", else: "Ask me about Stephen's work..."}
+                  disabled={@loading}
+                  class={[
+                    "flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition-opacity",
+                    @loading && "opacity-50 cursor-not-allowed"
+                  ]}
                   autocomplete="off"
                 />
                 <button
                   type="submit"
-                  disabled={String.trim(@current_message) == ""}
-                  class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                  disabled={String.trim(@current_message) == "" || @loading}
+                  class={[
+                    "px-4 py-2 rounded-lg transition-colors",
+                    (@loading || String.trim(@current_message) == "") && "bg-gray-300 dark:bg-gray-600 cursor-not-allowed",
+                    (!@loading && String.trim(@current_message) != "") && "bg-primary-600 hover:bg-primary-700 text-white"
+                  ]}
                 >
-                  <.icon name="hero-paper-airplane" class="w-5 h-5" />
+                  <%= if @loading do %>
+                    <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  <% else %>
+                    <.icon name="hero-paper-airplane" class="w-5 h-5" />
+                  <% end %>
                 </button>
               </form>
             </div>
