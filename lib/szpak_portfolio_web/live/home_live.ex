@@ -8,7 +8,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
     technologies = %{
       ai_ml: [
         %{name: "OpenAI API", level: 95, description: "GPT-4, ChatGPT, and DALL-E integrations for intelligent applications"},
-        %{name: "Claude API", level: 90, description: "Anthropic's Claude for advanced reasoning and code generation"},
+        %{name: "Anthropic API", level: 90, description: "Anthropic's Claude for advanced reasoning and code generation"},
         %{name: "LLM Integration", level: 90, description: "Building conversational AI and intelligent workflows"},
         %{name: "AI Workflows", level: 85, description: "Designing and implementing AI-powered business processes"},
         %{name: "Prompt Engineering", level: 90, description: "Optimizing prompts for better AI responses and reliability"},
@@ -56,7 +56,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
         image: "/images/projects/portfolio.jpeg",
         technologies: ["Phoenix LiveView", "Elixir", "TailwindCSS", "Heroicons"],
         github_url: "https://github.com/stephenszpak/portfolio-site",
-        live_url: "https://stephenszpak.dev",
+        live_url: "https://stephenszpak.com",
         status: "completed"
       },
       %{
@@ -337,7 +337,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
                 <span class="skill-tag px-4 py-2 bg-gradient-to-r from-blue-100 to-cyan-100 dark:from-blue-900 dark:to-cyan-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.1s;">React</span>
                 <span class="skill-tag px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900 dark:to-purple-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.2s;">Elixir</span>
                 <span class="skill-tag px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.3s;">OpenAI API</span>
-                <span class="skill-tag px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.4s;">Claude API</span>
+                <span class="skill-tag px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.4s;">Anthropic API</span>
                 <span class="skill-tag px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.6s;">AI Workflows</span>
               </div>
 
@@ -375,7 +375,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
                     <.icon name="hero-cpu-chip" class="w-6 h-6 text-white" />
                   </div>
                   <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">AI Integration</h3>
-                  <p class="text-sm text-gray-600 dark:text-gray-300">OpenAI & Claude API integrations for intelligent apps</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-300">OpenAI & Anthropic API integrations for intelligent apps</p>
                 </div>
 
                 <!-- LLM Applications Card -->
@@ -429,7 +429,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
                 <.icon name="hero-cpu-chip" class="w-6 h-6 text-purple-600 dark:text-purple-400" />
               </div>
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">AI Integration Specialist</h3>
-              <p class="text-gray-600 dark:text-gray-300">Expert in OpenAI and Claude API integrations, building intelligent applications with advanced AI capabilities.</p>
+              <p class="text-gray-600 dark:text-gray-300">Expert in OpenAI and Anthropic API integrations, building intelligent applications with advanced AI capabilities.</p>
             </div>
 
             <div class="text-center p-6 rounded-xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-shadow duration-300 animate-slide-up" style="animation-delay: 0.1s;">
@@ -538,7 +538,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
                         <span class="text-indigo-700 dark:text-indigo-300 font-medium">Frontend Design</span>
                       </div>
                       <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 px-4 py-2 rounded-full border border-purple-200 dark:border-purple-700">
-                        <span class="text-purple-700 dark:text-purple-300 font-medium">OpenAI & Claude APIs</span>
+                        <span class="text-purple-700 dark:text-purple-300 font-medium">OpenAI & Anthropic APIs</span>
                       </div>
                       <div class="bg-primary-50 dark:bg-primary-900/30 px-4 py-2 rounded-full">
                         <span class="text-primary-700 dark:text-primary-300 font-medium">Phoenix LiveView</span>

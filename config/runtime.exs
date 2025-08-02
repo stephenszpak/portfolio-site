@@ -19,22 +19,6 @@ import Config
 # Always enable server in production
 if config_env() == :prod do
   config :szpak_portfolio, SzpakPortfolioWeb.Endpoint, server: true
-end
-
-if config_env() == :prod do
-  # Optional database configuration - only if DATABASE_URL is provided
-  if database_url = System.get_env("DATABASE_URL") do
-    maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
-
-    config :szpak_portfolio, SzpakPortfolio.Repo,
-      # ssl: true,
-      url: database_url,
-      pool_size: String.to_integer(System.get_env("POOL_SIZE") || "2"),
-      socket_options: maybe_ipv6,
-      timeout: 60_000,
-      connect_timeout: 60_000,
-      handshake_timeout: 60_000
-  end
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -99,19 +83,46 @@ if config_env() == :prod do
 
   # ## Configuring the mailer
   #
-  # In production you need to configure the mailer to use a different adapter.
-  # Also, you may need to configure the Swoosh API client of your choice if you
-  # are not using SMTP. Here is an example of the configuration:
-  #
-  #     config :szpak_portfolio, SzpakPortfolio.Mailer,
-  #       adapter: Swoosh.Adapters.Mailgun,
-  #       api_key: System.get_env("MAILGUN_API_KEY"),
-  #       domain: System.get_env("MAILGUN_DOMAIN")
-  #
-  # For this example you need include a HTTP client required by Swoosh API client.
-  # Swoosh supports Hackney and Finch out of the box:
-  #
-  #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
-  #
-  # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+  # Configure mailer for production
+  # Support multiple email providers with fallback to SMTP
+  cond do
+    # Postmark (recommended for transactional emails)
+    System.get_env("POSTMARK_API_KEY") ->
+      config :szpak_portfolio, SzpakPortfolio.Mailer,
+        adapter: Swoosh.Adapters.Postmark,
+        api_key: System.get_env("POSTMARK_API_KEY")
+
+    # Mailgun
+    System.get_env("MAILGUN_API_KEY") && System.get_env("MAILGUN_DOMAIN") ->
+      config :szpak_portfolio, SzpakPortfolio.Mailer,
+        adapter: Swoosh.Adapters.Mailgun,
+        api_key: System.get_env("MAILGUN_API_KEY"),
+        domain: System.get_env("MAILGUN_DOMAIN")
+
+    # SendGrid
+    System.get_env("SENDGRID_API_KEY") ->
+      config :szpak_portfolio, SzpakPortfolio.Mailer,
+        adapter: Swoosh.Adapters.Sendgrid,
+        api_key: System.get_env("SENDGRID_API_KEY")
+
+    # Generic SMTP (fallback)
+    System.get_env("SMTP_HOST") ->
+      config :szpak_portfolio, SzpakPortfolio.Mailer,
+        adapter: Swoosh.Adapters.SMTP,
+        relay: System.get_env("SMTP_HOST"),
+        port: String.to_integer(System.get_env("SMTP_PORT") || "587"),
+        username: System.get_env("SMTP_USERNAME"),
+        password: System.get_env("SMTP_PASSWORD"),
+        tls: :always,
+        auth: :always,
+        ssl: false
+
+    # Default: use local adapter for development-like behavior
+    true ->
+      config :szpak_portfolio, SzpakPortfolio.Mailer,
+        adapter: Swoosh.Adapters.Local
+  end
+
+  # Configure Swoosh API client
+  config :swoosh, :api_client, Swoosh.ApiClient.Finch
 end

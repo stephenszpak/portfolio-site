@@ -35,7 +35,7 @@ defmodule SzpakPortfolio.OpenAIClient do
   ## AI & Technical Skills
   **AI/ML (Primary Focus):**
   - OpenAI API (95%) - GPT-4, ChatGPT, and DALL-E integrations
-  - Claude API (90%) - Advanced reasoning and code generation
+  - Anthropic API (90%) - Advanced reasoning and code generation
   - LLM Integration (90%) - Conversational AI and intelligent workflows
   - AI Workflows (85%) - AI-powered business processes
   - Prompt Engineering (90%) - Optimizing AI responses and reliability

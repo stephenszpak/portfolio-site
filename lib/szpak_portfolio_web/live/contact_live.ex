@@ -1,5 +1,7 @@
 defmodule SzpakPortfolioWeb.ContactLive do
   use SzpakPortfolioWeb, :live_view
+  
+  alias SzpakPortfolio.{Emails, SpamProtection}
 
   def mount(_params, _session, socket) do
     changeset = contact_changeset(%{})
@@ -8,7 +10,9 @@ defmodule SzpakPortfolioWeb.ContactLive do
      assign(socket, 
        page_title: "Contact - Stephen Szpak",
        form: to_form(changeset, as: :contact),
-       message_sent: false
+       message_sent: false,
+       error_message: nil,
+       form_start_time: System.system_time(:millisecond)
      )}
   end
 
@@ -21,29 +25,72 @@ defmodule SzpakPortfolioWeb.ContactLive do
     changeset = contact_changeset(contact_params)
     
     if changeset.valid? do
-      # In a real application, you would send the email here
-      # For now, we'll just simulate success
-      # SzpakPortfolio.Mailer.send_contact_email(contact_params)
+      # Get client IP for rate limiting
+      client_ip = get_connect_info(socket, :peer_data) |> get_ip_string()
       
-      {:noreply, 
-       assign(socket, 
-         message_sent: true,
-         form: to_form(contact_changeset(%{}), as: :contact)
-       )}
+      # Prepare metadata for spam protection
+      metadata = %{
+        ip: client_ip,
+        form_start_time: socket.assigns.form_start_time
+      }
+      
+      # Check spam protection
+      case SpamProtection.validate_submission(contact_params, metadata) do
+        :ok ->
+          # Attempt to send email
+          case Emails.send_contact_email(contact_params) do
+            {:ok, :sent} ->
+              {:noreply, 
+               assign(socket, 
+                 message_sent: true,
+                 error_message: nil,
+                 form: to_form(contact_changeset(%{}), as: :contact)
+               )}
+            {:error, _reason} ->
+              {:noreply, 
+               assign(socket, 
+                 error_message: "Failed to send message. Please try again later or email me directly.",
+                 form: to_form(changeset, as: :contact, action: :validate)
+               )}
+          end
+        
+        {:error, reason} ->
+          {:noreply, 
+           assign(socket, 
+             error_message: "Message blocked: #{reason}",
+             form: to_form(changeset, as: :contact, action: :validate)
+           )}
+      end
     else
       {:noreply, assign(socket, form: to_form(changeset, as: :contact, action: :validate))}
     end
   end
 
   def handle_event("reset_form", _params, socket) do
-    {:noreply, assign(socket, message_sent: false, form: to_form(contact_changeset(%{}), as: :contact))}
+    {:noreply, 
+     assign(socket, 
+       message_sent: false, 
+       error_message: nil,
+       form: to_form(contact_changeset(%{}), as: :contact),
+       form_start_time: System.system_time(:millisecond)
+     )}
+  end
+
+  # Helper function to extract IP address from peer data
+  defp get_ip_string(peer_data) do
+    case peer_data do
+      %{address: address} when is_tuple(address) ->
+        address |> :inet.ntoa() |> to_string()
+      _ ->
+        "unknown"
+    end
   end
 
   defp contact_changeset(attrs) do
-    types = %{name: :string, email: :string, subject: :string, message: :string}
+    types = %{name: :string, email: :string, subject: :string, message: :string, website: :string}
     
     {%{}, types}
-    |> Ecto.Changeset.cast(attrs, [:name, :email, :subject, :message])
+    |> Ecto.Changeset.cast(attrs, [:name, :email, :subject, :message, :website])
     |> Ecto.Changeset.validate_required([:name, :email, :subject, :message])
     |> Ecto.Changeset.validate_format(:email, ~r/^[^\s]+@[^\s]+\.[^\s]+$/)
     |> Ecto.Changeset.validate_length(:name, min: 2, max: 100)
@@ -154,6 +201,17 @@ defmodule SzpakPortfolioWeb.ContactLive do
                   Send Me a Message
                 </h2>
 
+                <%= if @error_message do %>
+                  <div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <div class="flex items-center space-x-2">
+                      <.icon name="hero-exclamation-triangle" class="w-5 h-5 text-red-600 dark:text-red-400" />
+                      <span class="text-red-800 dark:text-red-300 font-medium">
+                        <%= @error_message %>
+                      </span>
+                    </div>
+                  </div>
+                <% end %>
+
                 <.form for={@form} phx-change="validate" phx-submit="send_message" class="space-y-6">
                   <div class="grid sm:grid-cols-2 gap-4">
                     <div>
@@ -194,6 +252,18 @@ defmodule SzpakPortfolioWeb.ContactLive do
                       placeholder="Tell me about your project or inquiry..."
                       rows="6"
                       required
+                    />
+                  </div>
+
+                  <!-- Honeypot field - hidden from users but visible to bots -->
+                  <div style="position: absolute; left: -9999px; visibility: hidden;">
+                    <.input
+                      field={@form[:website]}
+                      type="text"
+                      label="Website (do not fill)"
+                      placeholder=""
+                      tabindex="-1"
+                      autocomplete="off"
                     />
                   </div>
 

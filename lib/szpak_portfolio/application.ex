@@ -9,8 +9,6 @@ defmodule SzpakPortfolio.Application do
   def start(_type, _args) do
     children = [
       SzpakPortfolioWeb.Telemetry,
-      # Temporarily disabled for production deployment
-      # SzpakPortfolio.Repo,
       {DNSCluster, query: Application.get_env(:szpak_portfolio, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: SzpakPortfolio.PubSub},
       # Start the Finch HTTP client for sending emails
