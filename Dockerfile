@@ -90,4 +90,4 @@ USER nobody
 # COPY --chown=nobody:root bin/server /app/bin/server
 # RUN chmod +x /app/bin/server
 
-CMD ["/app/bin/server"]
+CMD ["/app/bin/szpak_portfolio", "start"]

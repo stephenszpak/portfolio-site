@@ -334,7 +334,7 @@ OPENAI_API_KEY=your_openai_api_key        # For AI assistant
 SMTP_HOST=smtp.gmail.com                  # For contact emails
 SMTP_USERNAME=your_email@gmail.com
 SMTP_PASSWORD=your_app_password
-CONTACT_EMAIL=stephen@example.com
+CONTACT_EMAIL=stephen@stephenszpak.com
 GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX         # For analytics
 ```
 

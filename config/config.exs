@@ -20,7 +20,17 @@ config :szpak_portfolio, SzpakPortfolioWeb.Endpoint,
     layout: false
   ],
   pubsub_server: SzpakPortfolio.PubSub,
-  live_view: [signing_salt: "dz3eDxyF"]
+  live_view: [
+    signing_salt: "dz3eDxyF",
+    # Increase session timeout for better cross-browser compatibility
+    session_timeout: 30 * 60 * 1000, # 30 minutes
+    # Better transport configuration for Safari/Edge
+    transport_options: [
+      timeout: 30_000,
+      transport_log: false,
+      check_origin: false
+    ]
+  ]
 
 # Configures the mailer
 #

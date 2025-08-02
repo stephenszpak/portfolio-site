@@ -35,6 +35,51 @@ szpak_portfolio-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Environment files
 .env
-.env
-.env
+.env.local
+.env.production
+.env.test
+
+# macOS
+.DS_Store
+assets/images/.DS_Store
+**/.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Fly.io deployment artifacts
+fly.toml.bak
+
+# SSL certificates (if any local ones are generated)
+*.pem
+*.key
+*.crt
+
+# Backup files
+*.bak
+*.backup
+
+# Temporary files
+.tmp/
+.cache/

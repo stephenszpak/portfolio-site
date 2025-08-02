@@ -86,8 +86,8 @@ defmodule SzpakPortfolioWeb.ContactLive do
                 </div>
                 <div>
                   <h3 class="font-semibold text-gray-900 dark:text-white">Email</h3>
-                  <a href="mailto:stephen@stephenszpak.dev" class="text-primary-600 dark:text-primary-400 hover:underline">
-                    stephen@stephenszpak.dev
+                  <a href="mailto:stephen@stephenszpak.com" class="text-primary-600 dark:text-primary-400 hover:underline">
+                    stephen@stephenszpak.com
                   </a>
                 </div>
               </div>

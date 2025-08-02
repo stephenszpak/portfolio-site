@@ -24,8 +24,19 @@ import topbar from "../vendor/topbar"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
-  longPollFallbackMs: 2500,
-  params: {_csrf_token: csrfToken}
+  // Faster fallback to long polling for Safari/Edge compatibility
+  longPollFallbackMs: 1000, 
+  params: {_csrf_token: csrfToken},
+  // Enhanced configuration for Safari/Edge compatibility
+  timeout: 20000,
+  heartbeatIntervalMs: 20000,
+  reconnectAfterMs: function(tries) {
+    return [500, 1000, 2000, 5000][tries - 1] || 5000
+  },
+  // Enable debugging for troubleshooting
+  logger: (kind, msg, data) => {
+    console.log(`LiveSocket ${kind}: `, msg, " - ", data)
+  }
 })
 
 // Show progress bar on live navigation and form submits

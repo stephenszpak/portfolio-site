@@ -21,6 +21,9 @@ defmodule SzpakPortfolioWeb.HomeLive do
         %{name: "Node.js", level: 85, description: "JavaScript runtime for server-side development"},
         %{name: "PostgreSQL", level: 80, description: "Advanced open-source relational database"},
         %{name: "Redis", level: 75, description: "In-memory data structure store for caching"},
+        %{name: "Ruby on Rails", level: 85, description: "Full-stack web framework for rapid development"},
+        %{name: "C#", level: 85, description: "Object-oriented programming language for enterprise applications"},
+        %{name: "Rust", level: 50, description: "Systems programming language (currently learning)"},
       ],
       frontend: [
         %{name: "React", level: 90, description: "JavaScript library for building user interfaces"},
@@ -35,8 +38,11 @@ defmodule SzpakPortfolioWeb.HomeLive do
         %{name: "Docker", level: 80, description: "Containerization platform"},
         %{name: "Fly.io", level: 85, description: "Platform for deploying applications globally"},
         %{name: "GitHub Actions", level: 75, description: "CI/CD platform for automation"},
-        %{name: "VS Code", level: 95, description: "Code editor with extensive extensions"},
-        %{name: "Figma", level: 70, description: "Design tool for UI/UX design"},
+        %{name: "VIM", level: 95, description: "Powerful text editor with modal editing"},
+        %{name: "AdobeXD", level: 80, description: "UI/UX design and prototyping tool"},
+        %{name: "Azure DevOps", level: 90, description: "DevOps platform for development lifecycle management"},
+        %{name: "AEM", level: 85, description: "Adobe Experience Manager for content management"},
+        %{name: "Kubernetes", level: 70, description: "Container orchestration platform"},
       ]
     }
 
@@ -47,9 +53,9 @@ defmodule SzpakPortfolioWeb.HomeLive do
         title: "Portfolio Website",
         description: "A modern, responsive portfolio website built with Phoenix LiveView and TailwindCSS.",
         long_description: "This portfolio website showcases the power of Phoenix LiveView for creating interactive, real-time web applications. Features include dark mode, responsive design, and smooth animations.",
-        image: "/images/projects/portfolio.jpg",
+        image: "/images/projects/portfolio.jpeg",
         technologies: ["Phoenix LiveView", "Elixir", "TailwindCSS", "Heroicons"],
-        github_url: "https://github.com/stephenszpak/portfolio",
+        github_url: "https://github.com/stephenszpak/portfolio-site",
         live_url: "https://stephenszpak.dev",
         status: "completed"
       },
@@ -58,7 +64,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
         title: "MMO-Server",
         description: "Experimental multiplayer game server built with Phoenix, featuring real-time gameplay mechanics.",
         long_description: "A Phoenix-based multiplayer server experiment demonstrating scalable game architecture. Features include distributed player management with Horde, real-time zone-based gameplay, NPC AI systems with patrolling and combat behaviors, quest tracking and completion, skill systems with JSON metadata, loot dropping and pickup mechanics, world events and boss spawning, player progression (XP/leveling), and comprehensive combat engine with debuff systems. The server uses Phoenix Channels for real-time communication, GenServer processes for players and NPCs, and PubSub for broadcasting world events. Includes clustering support for multi-node deployment and comprehensive test coverage for all game mechanics.",
-        image: "/images/projects/mmo-server.jpg",
+        image: "/images/projects/mmo-server.png",
         technologies: ["Phoenix", "Elixir", "Horde", "PostgreSQL", "Phoenix PubSub", "GenServer"],
         github_url: "https://github.com/stephenszpak/mmo-server",
         live_url: nil,
@@ -69,7 +75,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
         title: "DevTeam AI",
         description: "AI-powered development team simulation with collaborative intelligent agents for automated code generation.",
         long_description: "An innovative hybrid Elixir/Python application that demonstrates AI-driven software development workflows. Features real-time task creation and tracking, intelligent agents using AutoGen framework that understand and execute development tasks, simulated coding workflow with agent collaboration, live chat and status updates, and microservice architecture. Users can submit natural language development tasks like 'Create a responsive navigation bar' and watch AI agents receive, analyze, generate, and implement code with real-time progress updates. Built with Phoenix LiveView backend, React frontend, and Python AI agents in Docker containers.",
-        image: "/images/projects/devteam-ai.jpg",
+        image: "/images/projects/dev-team.png",
         technologies: ["Phoenix LiveView", "React", "Python", "AutoGen", "Docker", "Elixir"],
         github_url: "https://github.com/stephenszpak/devteam-ai",
         live_url: nil,
@@ -324,7 +330,6 @@ defmodule SzpakPortfolioWeb.HomeLive do
 
               <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 animate-slide-up-stagger" style="animation-delay: 0.2s;">
                 Building intelligent web applications with AI integration, LLMs, and modern technologies. 
-                Specializing in <span class="text-primary-600 dark:text-primary-400 font-semibold">OpenAI</span> and <span class="text-primary-600 dark:text-primary-400 font-semibold">Claude</span> integrations.
               </p>
 
               <!-- Skill Tags -->
@@ -333,7 +338,6 @@ defmodule SzpakPortfolioWeb.HomeLive do
                 <span class="skill-tag px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900 dark:to-purple-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.2s;">Elixir</span>
                 <span class="skill-tag px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900 text-purple-800 dark:text-purple-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.3s;">OpenAI API</span>
                 <span class="skill-tag px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.4s;">Claude API</span>
-                <span class="skill-tag px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.5s;">Phoenix LiveView</span>
                 <span class="skill-tag px-4 py-2 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium animate-slide-up-stagger" style="--delay: 0.6s;">AI Workflows</span>
               </div>
 
@@ -506,7 +510,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
                       </h2>
                       <div class="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                         <p>
-                          With over <strong>7 years of experience</strong> in web development, I specialize in building 
+                          With over <strong>9 years of experience</strong> in web and software development, I specialize in building 
                           modern, performant front-end systems and experimenting with AI integration. Currently serving as 
                           an <strong>AVP Front-End Developer at AllianceBernstein</strong>, I focus on supporting enterprise 
                           marketing initiatives by maintaining and enhancing components for our public site and internal 
@@ -676,12 +680,16 @@ defmodule SzpakPortfolioWeb.HomeLive do
                 "bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer animate-slide-up",
                 "hover:-translate-y-2"
               ]} style={"animation-delay: #{index * 0.1}s;"} phx-click="open_modal" phx-value-project_id={project.id}>
-                <!-- Project Image Placeholder -->
-                <div class="h-48 bg-gradient-to-br from-primary-400 to-purple-500 relative overflow-hidden">
-                  <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all duration-300"></div>
-                  <div class="absolute inset-0 flex items-center justify-center text-white">
-                    <.icon name="hero-photo" class="w-16 h-16 opacity-60" />
-                  </div>
+                <!-- Project Image -->
+                <div class="h-48 relative overflow-hidden">
+                  <%= if project.image do %>
+                    <img src={project.image} alt={project.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div class="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                  <% else %>
+                    <div class="h-full bg-gradient-to-br from-primary-400 to-purple-500 flex items-center justify-center">
+                      <.icon name="hero-photo" class="w-16 h-16 text-white opacity-60" />
+                    </div>
+                  <% end %>
                   <!-- Status Badge -->
                   <div class="absolute top-4 right-4">
                     <span class={[
@@ -755,13 +763,25 @@ defmodule SzpakPortfolioWeb.HomeLive do
           </div>
 
           <!-- Category Selector -->
-          <div class="flex justify-center mb-12">
-            <div class="bg-white dark:bg-gray-800 rounded-xl p-1 shadow-lg">
+          <div class="mb-12">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-1 shadow-lg grid grid-cols-4 gap-1">
+              <button
+                phx-click="select_category"
+                phx-value-category="ai_ml"
+                class={[
+                  "px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2",
+                  @selected_category == :ai_ml && "bg-primary-600 text-white shadow-md",
+                  @selected_category != :ai_ml && "text-gray-600 dark:text-gray-300 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/30"
+                ]}
+              >
+                <.icon name="hero-cpu-chip" class="w-5 h-5" />
+                <span>AI</span>
+              </button>
               <button
                 phx-click="select_category"
                 phx-value-category="backend"
                 class={[
-                  "px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2",
+                  "px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2",
                   @selected_category == :backend && "bg-primary-600 text-white shadow-md",
                   @selected_category != :backend && "text-gray-600 dark:text-gray-300 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/30"
                 ]}
@@ -773,7 +793,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
                 phx-click="select_category"
                 phx-value-category="frontend"
                 class={[
-                  "px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2",
+                  "px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2",
                   @selected_category == :frontend && "bg-primary-600 text-white shadow-md",
                   @selected_category != :frontend && "text-gray-600 dark:text-gray-300 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/30"
                 ]}
@@ -785,7 +805,7 @@ defmodule SzpakPortfolioWeb.HomeLive do
                 phx-click="select_category"
                 phx-value-category="tools"
                 class={[
-                  "px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center space-x-2",
+                  "px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2",
                   @selected_category == :tools && "bg-primary-600 text-white shadow-md",
                   @selected_category != :tools && "text-gray-600 dark:text-gray-300 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/30"
                 ]}
@@ -928,8 +948,8 @@ defmodule SzpakPortfolioWeb.HomeLive do
                   </div>
                   <div>
                     <h3 class="font-semibold text-gray-900 dark:text-white">Email</h3>
-                    <a href="mailto:stephen@stephenszpak.dev" class="text-primary-600 dark:text-primary-400 hover:underline">
-                      stephen@stephenszpak.dev
+                    <a href="mailto:stephen@stephenszpak.com" class="text-primary-600 dark:text-primary-400 hover:underline">
+                      stephen@stephenszpak.com
                     </a>
                   </div>
                 </div>
@@ -1054,50 +1074,6 @@ defmodule SzpakPortfolioWeb.HomeLive do
             </div>
           </div>
 
-          <!-- FAQ Section -->
-          <div class="mt-20 bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-xl p-8">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
-              Frequently Asked Questions
-            </h2>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  What's your typical response time?
-                </h3>
-                <p class="text-gray-600 dark:text-gray-300">
-                  I usually respond to messages within 24-48 hours during business days.
-                </p>
-              </div>
-
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  What types of projects do you work on?
-                </h3>
-                <p class="text-gray-600 dark:text-gray-300">
-                  I specialize in web applications, particularly those built with Phoenix LiveView, React, and Node.js.
-                </p>
-              </div>
-
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  Do you work with international clients?
-                </h3>
-                <p class="text-gray-600 dark:text-gray-300">
-                  Yes! I work with clients globally and am experienced with remote collaboration.
-                </p>
-              </div>
-
-              <div>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  What's your approach to new projects?
-                </h3>
-                <p class="text-gray-600 dark:text-gray-300">
-                  I start with understanding your goals, then propose solutions that fit your timeline and budget.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -1258,9 +1234,15 @@ defmodule SzpakPortfolioWeb.HomeLive do
 
             <!-- Modal Content -->
             <div class="p-6">
-              <!-- Project Image Placeholder -->
-              <div class="h-64 bg-gradient-to-br from-primary-400 to-purple-500 rounded-xl mb-6 flex items-center justify-center">
-                <.icon name="hero-photo" class="w-24 h-24 text-white opacity-60" />
+              <!-- Project Image -->
+              <div class="h-64 rounded-xl mb-6 overflow-hidden">
+                <%= if @selected_project && @selected_project.image do %>
+                  <img src={@selected_project.image} alt={@selected_project.title} class="w-full h-full object-cover rounded-xl" />
+                <% else %>
+                  <div class="h-full bg-gradient-to-br from-primary-400 to-purple-500 rounded-xl flex items-center justify-center">
+                    <.icon name="hero-photo" class="w-24 h-24 text-white opacity-60" />
+                  </div>
+                <% end %>
               </div>
 
               <!-- Description -->

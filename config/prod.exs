@@ -6,7 +6,13 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :szpak_portfolio, SzpakPortfolioWeb.Endpoint,
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  # Better CSRF and origin handling for production
+  check_origin: [
+    "https://stephenszpak.com",
+    "https://www.stephenszpak.com", 
+    "https://szpak-portfolio.fly.dev"
+  ]
 
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: SzpakPortfolio.Finch
